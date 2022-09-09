@@ -1,26 +1,63 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <table>
+    <tr>
+      <TreeCell :text="text" :table="table" />
+    </tr>
+  </table>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TreeCell from "./components/TreeCell.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    TreeCell,
+  },
+  data() {
+    return {
+      text: "Default template",
+      table: [
+        [
+          { text: "1", table: [] },
+          { text: "2", table: [] },
+        ],
+        [
+          { text: "3", table: [] },
+          { text: "4", table: [] },
+        ],
+      ],
+    };
+  },
+  mounted() {
+    const textContent = document.querySelectorAll(".textContent");
+    for (let i = 0; i < textContent.length; i++) {
+      textContent[i].addEventListener(
+        "dblclick",
+        (e) => {
+          e.target.contentEditable = true;
+        },
+        false
+      );
+      textContent[i].addEventListener(
+        "focusout",
+        (e) => {
+          e.target.contentEditable = false;
+        },
+        false
+      );
+    }
+  },
+};
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+body {
+  background: #e6e6e6;
 }
 </style>
